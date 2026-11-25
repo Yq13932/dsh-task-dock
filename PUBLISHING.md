@@ -77,10 +77,32 @@ node -e "const fs=require('fs');const{parseMarketIndex}=require('@deepseek-ai/ds
 - `publishTimestamp` 示例值 `1794441600` 是 2026-11-12 00:00 UTC；发布后务必换成 npm 实际时间。
 - `category` / `labels` 只能引用索引全局 `metadata` 里已声明的 id——不确定就只写 `keywords`（自由文本）。
 
-## 5. 提交
+## 5. 让别人在「发现」页看到（没有官方提交入口）
 
-向市场索引仓库提 PR（或在 DSH 市场页的「提交插件」入口提交），附：npm 包名、仓库地址、一行说明、图标（可选，相对 URL 必须解析到 https 或索引同源）。
-审过之后，用户在市场页点安装即可，安装参数是 `dsh-task-dock@0.2.0`。
+更正：当前 DSH 版本**不内置官方索引源，也没有「提交插件」入口**。`plugin-market.indexes` 默认是空数组，
+「发现」页只列出**用户自己添加的索引 URL**。所以没有「上架审核」这回事，能做的只有两种：
+
+**自建索引（推荐）**：在仓库里放一份 format 1 的完整索引 `market/index.json`：
+
+```json
+{
+  "format": 1,
+  "title": { "en": "Yq13932 plugins", "zh": "Yq13932 插件" },
+  "plugins": [ /* 把 market/dsh-task-dock.json 的内容整个放进来 */ ]
+}
+```
+
+用户把它加进索引源即可看到：
+
+```
+https://raw.githubusercontent.com/Yq13932/dsh-task-dock/main/market/index.json
+```
+
+（DSH：插件页 → 发现 → 添加索引源 → 粘贴上面的 URL）
+
+**社区索引**：如果有社区维护的索引仓库，就按对方的规则提 PR 收录条目；目前没有官方在维护的索引。
+
+不走市场也能装：`dsh plugin --profile desktop add dsh-task-dock`。
 
 ## 6. 发布前最后一遍
 
@@ -88,5 +110,5 @@ node -e "const fs=require('fs');const{parseMarketIndex}=require('@deepseek-ai/ds
 - [ ] `npm pack --dry-run` 只含 `lib/`（已构建的最新 `client.js`）+ 文档 + `cordis.patch.yml`
 - [ ] `tools/test-dock.mjs` 全过，`node --check lib/client.js` 通过
 - [ ] README 的安装命令与实际包名一致
-- [ ] 市场条目 `version` / `publishTimestamp` 与 npm 实际发布时间一致
-- [ ] 标签 `v0.2.0` 已推
+- [ ] 市场条目 `version` / `publishTimestamp` 与 npm 实际发布时间一致（已发 0.2.0：`publishTimestamp` = 1795606571）
+- [ ] 如需「发现」页可见，`market/index.json` 已上传并自测过 URL
