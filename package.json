@@ -1,0 +1,64 @@
+{
+  "name": "dsh-task-dock",
+  "version": "0.2.0",
+  "description": "Task Dock for DeepSeek Harness: a slim bar pinned to the bottom of the workspace that lists running sessions, finished-but-unreviewed sessions, and manually marked unread sessions; click one to jump straight to it. 任务坞：工作区底部任务横条，汇总运行中 / 完成未验收 / 标记未读的会话，点一下跳转。",
+  "type": "module",
+  "main": "./lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "cordis-plugin",
+    "session",
+    "tasks",
+    "unread",
+    "inbox",
+    "productivity"
+  ],
+  "scripts": {
+    "build": "node tools/build-client.mjs",
+    "test": "node tools/test-dock.mjs && node --check lib/client.js",
+    "prepublishOnly": "node tools/build-client.mjs && node tools/test-dock.mjs && node --check lib/client.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-session",
+        "@deepseek-ai/dsh-client-ui-workspace",
+        "@deepseek-ai/dsh-client-ui-layout"
+      ]
+    }
+  },
+  "license": "MIT",
+  "author": "Yq13932 <Yq13932@users.noreply.github.com>",
+  "homepage": "https://github.com/Yq13932/dsh-task-dock#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yq13932/dsh-task-dock.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Yq13932/dsh-task-dock/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

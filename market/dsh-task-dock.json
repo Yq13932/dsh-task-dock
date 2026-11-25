@@ -1,0 +1,37 @@
+{
+  "name": "dsh-task-dock",
+  "title": {
+    "en": "Task Dock",
+    "zh": "任务坞"
+  },
+  "description": {
+    "en": "A slim bar pinned to the bottom of the workspace listing running sessions, finished-but-unreviewed sessions, and manually marked unread sessions. One click jumps to the session.",
+    "zh": "工作区最下方的一条常驻任务栏：汇总正在运行、完成但还没验收、以及被标为未读的会话，点一条直接跳过去。"
+  },
+  "author": "Yq13932",
+  "homepage": "https://github.com/Yq13932/dsh-task-dock#readme",
+  "repository": {
+    "url": "https://github.com/Yq13932/dsh-task-dock"
+  },
+  "metadata": {
+    "keywords": [
+      "session",
+      "tasks",
+      "unread",
+      "inbox",
+      "productivity"
+    ]
+  },
+  "versions": [
+    {
+      "version": "0.2.0",
+      "publishTimestamp": 1794441600,
+      "source": {
+        "type": "npm"
+      },
+      "engines": {
+        "dsh": ">=0.2.1-rc.2"
+      }
+    }
+  ]
+}

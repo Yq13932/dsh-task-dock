@@ -1,0 +1,5 @@
+# dsh-task-dock 的挂载声明。
+# id 是运行时 id（数据/日志/事件都跟着它），name 必须是包的完整名。
+- insert:
+    - id: dsh-task-dock
+      name: dsh-task-dock

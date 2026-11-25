@@ -1,0 +1,259 @@
+/* 任务坞：shell.bottom 里的一条常驻横条 + 弹出的任务清单 */
+.dtd-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 28px;
+  padding: 0 12px;
+  border: 0;
+  border-top: 0.5px solid var(--dsw-alias-border-l1);
+  background: var(--dsw-alias-bg-base);
+  color: var(--dsw-alias-label-secondary);
+  font-size: 12px;
+  line-height: 18px;
+  text-align: left;
+  cursor: pointer;
+}
+.dtd-bar:hover,
+.dtd-bar[data-open='true'] {
+  background: var(--dsw-alias-fill-l1);
+}
+.dtd-bar-static {
+  cursor: default;
+}
+.dtd-bar-static:hover {
+  background: var(--dsw-alias-bg-base);
+}
+.dtd-bar-icon {
+  font-size: 12px;
+  color: var(--dsw-alias-label-tertiary);
+}
+.dtd-title {
+  font-weight: 600;
+  color: var(--dsw-alias-label-primary);
+}
+.dtd-quiet {
+  color: var(--dsw-alias-label-tertiary);
+}
+.dtd-stats {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.dtd-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.dtd-spacer {
+  flex: 1;
+}
+.dtd-chev {
+  color: var(--dsw-alias-label-tertiary);
+  transition: transform 0.15s ease;
+}
+.dtd-chev-open {
+  transform: rotate(180deg);
+}
+.dtd-dot {
+  flex: none;
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--dsw-alias-label-tertiary);
+}
+.dtd-dot-run {
+  background: var(--dsw-alias-state-business-primary, #4d6bfe);
+  animation: dtd-pulse 1.6s ease-in-out infinite;
+}
+.dtd-dot-done {
+  background: var(--dsw-alias-state-warn-label, #f0a020);
+}
+/* 侧栏会话行首的未读红点 + 会话菜单里的圆点 */
+.dtd-unread-dot {
+  display: inline-block;
+  flex: 0 0 auto;
+  width: 8px;
+  height: 8px;
+  margin-right: 6px;
+  vertical-align: middle;
+  border-radius: 50%;
+  background: #e5484d;
+}
+.dtd-menu-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #e5484d;
+}
+.dtd-menu-fallback {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.dtd-dot-unread {
+  background: #e5484d;
+}
+@keyframes dtd-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dtd-dot-run { animation: none; }
+  .dtd-chev { transition: none; }
+}
+
+.dtd-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background: transparent;
+}
+.dtd-panel {
+  position: fixed;
+  right: 12px;
+  bottom: 38px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  width: min(480px, calc(100vw - 24px));
+  max-height: min(62vh, 540px);
+  overflow: hidden;
+  border: 0.5px solid var(--dsw-alias-border-l2);
+  border-radius: 10px;
+  background: var(--dsw-specific-menu, var(--dsw-alias-bg-base));
+  box-shadow: var(--dsw-elevation-prominent, 0 8px 24px rgba(0, 0, 0, 0.18));
+}
+.dtd-panel-head {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 10px 12px 8px;
+  border-bottom: 0.5px solid var(--dsw-alias-border-l1);
+}
+.dtd-panel-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--dsw-alias-label-primary);
+}
+.dtd-panel-sub {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  font-size: 11px;
+  color: var(--dsw-alias-label-tertiary);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.dtd-close {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--dsw-alias-label-tertiary);
+  font-size: 12px;
+  cursor: pointer;
+}
+.dtd-close:hover {
+  background: var(--dsw-alias-fill-l1);
+  color: var(--dsw-alias-label-primary);
+}
+.dtd-panel-body {
+  min-height: 0;
+  overflow: auto;
+  padding: 4px 6px 8px;
+}
+.dtd-section + .dtd-section {
+  margin-top: 2px;
+}
+.dtd-section-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 8px 4px;
+  color: var(--dsw-alias-label-tertiary);
+  font-size: 11px;
+  line-height: 16px;
+}
+.dtd-section-count {
+  padding: 0 5px;
+  border-radius: 8px;
+  background: var(--dsw-alias-fill-l2);
+  font-size: 10px;
+}
+.dtd-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 7px 8px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.dtd-row:hover,
+.dtd-row:focus-visible {
+  background: var(--dsw-alias-fill-l1);
+}
+.dtd-row .dtd-dot {
+  margin-top: 6px;
+}
+.dtd-row-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+.dtd-row-title {
+  overflow: hidden;
+  color: var(--dsw-alias-label-primary);
+  font-size: 12.5px;
+  line-height: 17px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.dtd-row-meta {
+  overflow: hidden;
+  color: var(--dsw-alias-label-tertiary);
+  font-size: 11px;
+  line-height: 15px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.dtd-row-go {
+  flex: none;
+  align-self: center;
+  color: var(--dsw-alias-label-tertiary);
+  font-size: 11px;
+  opacity: 0;
+}
+.dtd-row:hover .dtd-row-go,
+.dtd-row:focus-visible .dtd-row-go {
+  opacity: 1;
+}
+.dtd-empty {
+  padding: 28px 12px;
+  text-align: center;
+}
+.dtd-empty-title {
+  color: var(--dsw-alias-label-secondary);
+  font-size: 12.5px;
+}
+.dtd-empty-sub {
+  margin-top: 6px;
+  color: var(--dsw-alias-label-tertiary);
+  font-size: 11px;
+  line-height: 16px;
+}
